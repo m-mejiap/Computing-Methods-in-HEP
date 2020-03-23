@@ -17,28 +17,33 @@ class tracks{
         double vertex[3];
         double f_momentum[4];
     public:
-        void momentum(double * a);
+        double momentum(double P, double theta);
         double rapidity(double theta);
 };
 
 class montecarlo{
     private:
         double data[3];
+        string classparticle;
+        string parent;
     public:
-        void trackclass();
+        void trackclass(string a, string b);
 };
 
 //Member methods development.
-void tracks::momentum(double * a){
+double tracks::momentum(double P, double theta){
+    double Pt = P * sin(theta);
+    return Pt;
 }
 
 double tracks::rapidity(double theta){
-    double n = log(tan(theta,2));
+    double n = -log(tan(theta/2));
     return n;
 }
 
-void montecarlo::trackclass(){
-    
+void montecarlo::trackclass(string a, string b){
+    classparticle = a;
+    parent = b;
 }
 
 //Main.
@@ -48,7 +53,9 @@ int main() {
     double * pointv = v;
     double * pointm = m;
     tracks t;
-    t.momentum(pointm);
-    t.rapidity(9.0);
+    cout<<t.momentum(4,9)<<endl;
+    cout<<t.rapidity(9.0)<<endl;
+    montecarlo l;
+    l.trackclass("electron","positron");
     return 0;
 }
